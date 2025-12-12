@@ -1,0 +1,6 @@
+
+> testops-copilot-frontend@0.1.0 build
+> tsc && vite build
+
+src/App.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/types/index.ts(7,26): error TS2304: Cannot find name 'str'.
