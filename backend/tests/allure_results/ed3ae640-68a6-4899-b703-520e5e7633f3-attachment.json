@@ -1,0 +1,327 @@
+{
+    "items": [
+        {
+            "id": "7e2a8bd3-54c1-4691-b3dc-14e806e5742b",
+            "name": "gpa100-40_96-960-4",
+            "description": "",
+            "type": "nvidia_a100_40gb",
+            "flavor_type": {
+                "id": "a1de131d-096f-4db1-83f6-55251d892e26",
+                "name": "gpu_a100_40g",
+                "old_name": "nvidia_a100_40gb",
+                "display_name": "NVIDIA A100 40G",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "NVIDIA A100 40G PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 96,
+            "ram": 960,
+            "gpu": 4,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "35e48958-d7cb-4862-9206-3fee5ffc0396",
+            "name": "gpa100-40_48-480-2",
+            "description": "",
+            "type": "nvidia_a100_40gb",
+            "flavor_type": {
+                "id": "a1de131d-096f-4db1-83f6-55251d892e26",
+                "name": "gpu_a100_40g",
+                "old_name": "nvidia_a100_40gb",
+                "display_name": "NVIDIA A100 40G",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "NVIDIA A100 40G PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 48,
+            "ram": 480,
+            "gpu": 2,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "436bf289-3704-4349-bc35-3a0a3ab2ac9f",
+            "name": "gpa100-40_24-240-1",
+            "description": "",
+            "type": "nvidia_a100_40gb",
+            "flavor_type": {
+                "id": "a1de131d-096f-4db1-83f6-55251d892e26",
+                "name": "gpu_a100_40g",
+                "old_name": "nvidia_a100_40gb",
+                "display_name": "NVIDIA A100 40G",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "NVIDIA A100 40G PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 24,
+            "ram": 240,
+            "gpu": 1,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "f9b28549-a10f-428e-9831-a862c1f4dd67",
+            "name": "vcpu-160-ram-880-gpu-8",
+            "description": "L3EVO-1835",
+            "type": "gpu_h100_pci",
+            "flavor_type": {
+                "id": "b21df024-d1fe-4e41-a714-fef5f4878a44",
+                "name": "gpu_h100_pci-1",
+                "old_name": "gpu_h100_pci",
+                "display_name": "NVIDIA H100 PCIe",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "H100 PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 160,
+            "ram": 880,
+            "gpu": 8,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "2fed429a-ff7d-4eef-99b5-f1b8badd9a78",
+            "name": "vcpu-140-ram-770-gpu-7",
+            "description": "L3EVO-1835",
+            "type": "gpu_h100_pci",
+            "flavor_type": {
+                "id": "b21df024-d1fe-4e41-a714-fef5f4878a44",
+                "name": "gpu_h100_pci-1",
+                "old_name": "gpu_h100_pci",
+                "display_name": "NVIDIA H100 PCIe",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "H100 PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 140,
+            "ram": 770,
+            "gpu": 7,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "0f2e21c9-a39a-471d-b795-73117b9969d9",
+            "name": "vcpu-120-ram-660-gpu-6",
+            "description": "L3EVO-1835",
+            "type": "gpu_h100_pci",
+            "flavor_type": {
+                "id": "b21df024-d1fe-4e41-a714-fef5f4878a44",
+                "name": "gpu_h100_pci-1",
+                "old_name": "gpu_h100_pci",
+                "display_name": "NVIDIA H100 PCIe",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "H100 PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 120,
+            "ram": 660,
+            "gpu": 6,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "0bcb6f23-90aa-41cb-8c8c-6e6142b798d8",
+            "name": "vcpu-100-ram-550-gpu-5",
+            "description": "L3EVO-1835",
+            "type": "gpu_h100_pci",
+            "flavor_type": {
+                "id": "b21df024-d1fe-4e41-a714-fef5f4878a44",
+                "name": "gpu_h100_pci-1",
+                "old_name": "gpu_h100_pci",
+                "display_name": "NVIDIA H100 PCIe",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "H100 PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 100,
+            "ram": 550,
+            "gpu": 5,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "2f9ede54-c33d-4802-ae36-20dc7a60cb8c",
+            "name": "vcpu-80-ram-440-gpu-4",
+            "description": "",
+            "type": "gpu_h100_pci",
+            "flavor_type": {
+                "id": "b21df024-d1fe-4e41-a714-fef5f4878a44",
+                "name": "gpu_h100_pci-1",
+                "old_name": "gpu_h100_pci",
+                "display_name": "NVIDIA H100 PCIe",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "H100 PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 80,
+            "ram": 440,
+            "gpu": 4,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "bf887d2b-c922-4ef8-90b2-78e6df675279",
+            "name": "vcpu-60-ram-330-gpu-3",
+            "description": "L3EVO-1835",
+            "type": "gpu_h100_pci",
+            "flavor_type": {
+                "id": "b21df024-d1fe-4e41-a714-fef5f4878a44",
+                "name": "gpu_h100_pci-1",
+                "old_name": "gpu_h100_pci",
+                "display_name": "NVIDIA H100 PCIe",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "H100 PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 60,
+            "ram": 330,
+            "gpu": 3,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        },
+        {
+            "id": "78699923-da70-4402-b1a2-5dd994a1b457",
+            "name": "vcpu-40-ram-220-gpu-2",
+            "description": "L3EVO-1835",
+            "type": "gpu_h100_pci",
+            "flavor_type": {
+                "id": "b21df024-d1fe-4e41-a714-fef5f4878a44",
+                "name": "gpu_h100_pci-1",
+                "old_name": "gpu_h100_pci",
+                "display_name": "NVIDIA H100 PCIe",
+                "description": null,
+                "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+                "gpu_type": "H100 PCIe",
+                "oversubscription": "1:1"
+            },
+            "cpu": 40,
+            "ram": 220,
+            "gpu": 2,
+            "oversubscription": "1:1",
+            "assured_bandwidth": 0,
+            "maximum_bandwidth": 0,
+            "pps": 0,
+            "availability_zones": [
+                {
+                    "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                    "availability_zone_name": "ru.AZ-2",
+                    "default": false,
+                    "enabled": true,
+                    "state": "created"
+                }
+            ]
+        }
+    ],
+    "offset": 0,
+    "limit": 10,
+    "total": 71
+}

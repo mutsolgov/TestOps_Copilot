@@ -1,0 +1,23 @@
+[
+  {
+    "project_id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+    "name": "test-vm-1765715222",
+    "flavor_id": "139ddd16-2482-4694-991d-9b1834266e03",
+    "image_id": "474c9e98-760f-4e54-aaa9-70024814f2b0",
+    "availability_zone_id": "7c99a597-8516-494f-a2c7-d7377048681e",
+    "disks": [
+      {
+        "name": "root-disk-1765715222",
+        "disk_type_id": "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0",
+        "size": 10
+      }
+    ],
+    "subnets": [
+      {
+        "subnet_id": "abb61c39-8a65-4735-8d65-55174b795163"
+      }
+    ],
+    "description": "Auto-generated test VM",
+    "cloud_init": "CiNjbG91ZC1jb25maWcKdXNlcnM6CiAgLSBuYW1lOiB1YnVudHUKICAgIHNzaC1hdXRob3JpemVkLWtleXM6CiAgICAgIC0gc3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUJKNmkraG00M0NFY0VJdXcwb252ZWhiWVcwcmJjSUhKblJHcFZRcVMxTlggbXVoYW1tYWRAMjIyCiAgICBzdWRvOiBBTEwK"
+  }
+]

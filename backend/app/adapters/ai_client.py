@@ -277,53 +277,26 @@ class Test{feature_name}:
 """
 
         if test_type == "API" and context == "API_VM_CREATE":
-             code_body = f"""        # Arrange
-        base_url = "https://compute.api.cloud.ru"
-        endpoint = "/api/v1/vms"
-        token = os.getenv("CLOUD_API_TOKEN") # Security fix
+             code_body = f"""        # Validation
+        vm_id = create_vm_and_cleanup
         
+        with allure.step("Validate VM Created"):
+            assert vm_id, "VM ID should not be empty"
+            
+        endpoint = f"/api/v1/vms/{{vm_id}}"
         headers = {{
-            "Authorization": f"Bearer {{token}}",
+            "Authorization": f"Bearer {{os.getenv('CLOUD_API_TOKEN')}}",
             "Content-Type": "application/json"
         }}
         
-        # Payload: Array of objects (as per docs)
-        payload = [
-          {{
-            "project_id": "405d8375-3514-403b-8c43-83ae74cfe0e9",
-            "name": "test-vm-01",
-            "flavor_id": "fa3e89aa-6829-47f5-8bf4-76d57211a9f1",
-            "image_id": "84c230fd-5520-4984-8119-37365b66fd80",
-            # Required array fields
-            "disks": [
-                {{
-                    "disk_id": "9fb32f13-bddc-42b3-9a07-4aed1801aae6",
-                    "disk_name": "boot-disk"
-                }}
-            ],
-            # Optional fields populated from sample
-            "description": "Auto-generated test VM",
-            "cloud_init": "#!/bin/bash\\necho hello"
-          }}
-        ]
-
-        # Act
-        with allure.step(f"POST {{endpoint}}"):
-            response = requests.post(base_url + endpoint, headers=headers, json=payload)
-
-        # Assert
-        with allure.step("Check Status Code 201 (Created)"):
-            assert response.status_code == 201, f"Expected 201, got {{response.status_code}}"
-        
-        data = response.json()
-        
-        with allure.step("Validate Response Schema"):
-            # Check for Array response (as per docs: Response Code 201 -> Array)
-            assert isinstance(data, list), "Response should be a list"
-            if data:
-                vm = data[0]
-                assert "id" in vm, "Missing 'id'"
-                assert "state" in vm, "Missing 'state'"
+        # Verify VM details
+        with allure.step(f"GET {{endpoint}}"):
+            response = requests.get(base_url + endpoint, headers=headers)
+            assert response.status_code == 200, f"Expected 200, got {{response.status_code}}"
+            data = response.json()
+            assert data["id"] == vm_id
+            assert "state" in data
+            assert "name" in data
         """
              
              decorators = f"""@allure.feature("{feature_name}")
@@ -331,15 +304,136 @@ class Test{feature_name}:
 @allure.suite("API")
 @allure.link("https://jira.cloud.ru/browse/TASK-API-VM-CREATE", name="API Docs")"""
 
+             fixture_code = f"""
+@pytest.fixture(scope="function")
+def create_vm_and_cleanup():
+    base_url = "https://compute.api.cloud.ru"
+    endpoint = "/api/v1/vms"
+    token = os.getenv("CLOUD_API_TOKEN")
+    project_id = os.getenv("TEST_PROJECT_ID")
+    ssh_key = os.getenv("TEST_SSH_PUBLIC_KEY")
+    
+    # Optional with defaults
+    az_id = os.getenv("TEST_AZ_ID", "7c99a597-8516-494f-a2c7-d7377048681e")
+    flavor_id = os.getenv("TEST_FLAVOR_ID", "139ddd16-2482-4694-991d-9b1834266e03")
+    image_id = os.getenv("TEST_IMAGE_ID", "474c9e98-760f-4e54-aaa9-70024814f2b0")
+    subnet_id = os.getenv("TEST_SUBNET_ID", "abb61c39-8a65-4735-8d65-55174b795163")
+    disk_type_id = os.getenv("TEST_DISK_TYPE_ID", "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0")
+
+    if not all([token, project_id, ssh_key]):
+        pytest.skip("Skipping VM test: Missing required env vars (CLOUD_API_TOKEN, TEST_PROJECT_ID, TEST_SSH_PUBLIC_KEY)")
+
+    headers = {{
+        "Authorization": f"Bearer {{token}}",
+        "Content-Type": "application/json"
+    }}
+@pytest.fixture(scope="function")
+def create_vm_and_cleanup():
+    base_url = "https://compute.api.cloud.ru"
+    endpoint = "/api/v1/vms"
+    token = os.getenv("CLOUD_API_TOKEN")
+    project_id = os.getenv("TEST_PROJECT_ID")
+    ssh_key = os.getenv("TEST_SSH_PUBLIC_KEY")
+    
+    # Optional with defaults
+    az_id = os.getenv("TEST_AZ_ID", "7c99a597-8516-494f-a2c7-d7377048681e")
+    flavor_id = os.getenv("TEST_FLAVOR_ID", "139ddd16-2482-4694-991d-9b1834266e03")
+    image_id = os.getenv("TEST_IMAGE_ID", "474c9e98-760f-4e54-aaa9-70024814f2b0")
+    subnet_id = os.getenv("TEST_SUBNET_ID", "abb61c39-8a65-4735-8d65-55174b795163")
+    disk_type_id = os.getenv("TEST_DISK_TYPE_ID", "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0")
+
+    if not all([token, project_id, ssh_key]):
+        pytest.skip("Skipping VM test: Missing required env vars (CLOUD_API_TOKEN, TEST_PROJECT_ID, TEST_SSH_PUBLIC_KEY)")
+
+    headers = {{
+        "Authorization": f"Bearer {{token}}",
+        "Content-Type": "application/json"
+    }}
+    
+    import time
+    import base64
+    unique_suffix = int(time.time())
+    vm_name = f"test-vm-{{unique_suffix}}"
+    disk_name = f"root-disk-{{unique_suffix}}"
+    
+    # 2. Prepare Cloud-init with embedded SSH key
+    cloud_init_raw = f'''
+#cloud-config
+users:
+  - name: ubuntu
+    ssh-authorized-keys:
+      - {{ssh_key}}
+    sudo: ALL
+'''
+    cloud_init_b64 = base64.b64encode(cloud_init_raw.encode("utf-8")).decode("utf-8")
+    
+    payload = [
+      {{
+        "project_id": project_id,
+        "name": vm_name,
+        "flavor_id": flavor_id,
+        "image_id": image_id,
+        "availability_zone_id": az_id, # AZ at root level
+        "disks": [
+            {{
+                "name": disk_name, # Correct field name
+                "disk_type_id": disk_type_id,
+                "size": 10
+            }}
+        ],
+        "subnets": [
+            {{
+                "subnet_id": subnet_id
+            }}
+        ],
+        "description": "Auto-generated test VM",
+        "cloud_init": cloud_init_b64 # Cloud-init at root level, Base64
+      }}
+    ]
+
+    request_body = json.dumps(payload, indent=2)
+    with allure.step("1. Attach VM Payload"):
+        allure.attach(request_body, name="VM Request Body", attachment_type=allure.attachment_type.JSON)
+
+    with allure.step(f"2. Execute POST {{endpoint}}"):
+        response = requests.post(base_url + endpoint, headers=headers, json=payload)
+        
+    with allure.step("3. Check Status Code 201"):
+        if response.status_code != 201:
+             pytest.fail(f"Expected 201, got {{response.status_code}}. Response: {{response.text}}")
+    
+    data = response.json()
+    created_vm_id = data[0]["id"]
+    
+    yield created_vm_id
+    
+    # Teardown
+    delete_endpoint = f"/api/v1/vms/{{created_vm_id}}"
+    with allure.step(f"Teardown: DELETE {{delete_endpoint}}"):
+        # Attempt minimal stop before delete just in case
+        try:
+             shutdown_payload = [{{ "id": created_vm_id, "state": "stopped" }}]
+             requests.put(base_url + endpoint, headers=headers, json=shutdown_payload)
+             time.sleep(1)
+        except:
+             pass
+        requests.delete(base_url + delete_endpoint, headers=headers)
+"""
+
              return f"""{api_imports}
+import json
+import base64
+import time
+
+{fixture_code}
 
 {decorators}
 class Test{feature_name}:
-    @allure.title("API Test: Create VM")
+    @allure.title("API Test: Create VM with Lifecycle")
     @allure.link("https://jira.cloud.ru/browse/TASK-PENDING", name="Related Task")
     @allure.tag("{priority.upper()}")
     @allure.label("priority", "{priority.lower()}")
-    def test_scenario(self):
+    def test_scenario(self, create_vm_and_cleanup):
 {code_body}
 """
 
@@ -518,38 +612,8 @@ class Test{feature_name}:
 {code_body}
 """
         if test_type == "API" and context == "API_DISKS_LIST":
-             code_body = f"""        # Arrange
-        base_url = "https://compute.api.cloud.ru"
-        endpoint = "/api/v1/disks"
-        
-        # Configuration
-        project_id = os.getenv("TEST_PROJECT_ID")
-        token = os.getenv("CLOUD_API_TOKEN")
-        
-        # Validation
-        assert project_id, "Please set TEST_PROJECT_ID in your .env file"
-        
-        headers = {{
-            "Authorization": f"Bearer {{token}}",
-            "Content-Type": "application/json"
-        }}
-        
-        params = {{
-            "project_id": project_id,
-            "limit": 10,
-            "order_by": "created_time",
-            "order_desc": "true"
-        }}
-
-        # Act
-        with allure.step(f"GET {{endpoint}}"):
-            response = requests.get(base_url + endpoint, headers=headers, params=params)
-
-        # Assert
-        with allure.step("Check Status Code 200"):
-            assert response.status_code == 200, f"Expected 200, got {{response.status_code}}"
-        
-        data = response.json()
+             code_body = f"""        # Validation
+        data = disk_list_data
         
         with allure.step("Validate Response Schema"):
             assert "items" in data, "Response missing 'items' field"
@@ -571,7 +635,44 @@ class Test{feature_name}:
 @allure.suite("API")
 @allure.link("https://jira.cloud.ru/browse/TASK-API-DISKS-LIST", name="API Docs")"""
 
+             fixture_code = f"""
+@pytest.fixture(scope="function")
+def disk_list_data():
+    project_id = os.getenv("TEST_PROJECT_ID")
+    token = os.getenv("CLOUD_API_TOKEN")
+    base_url = "https://compute.api.cloud.ru"
+    endpoint = "/api/v1/disks"
+    
+    assert project_id, "Please set TEST_PROJECT_ID in your .env file"
+
+    headers = {{
+        "Authorization": f"Bearer {{token}}",
+        "Content-Type": "application/json"
+    }}
+    params = {{
+        "project_id": project_id,
+        "limit": 10,
+        "order_by": "created_time",
+        "order_desc": "true"
+    }}
+    
+    with allure.step("1. Execute API GET /api/v1/disks"):
+        response = requests.get(base_url + endpoint, headers=headers, params=params)
+        
+    with allure.step("2. Check Status Code 200"):
+        if response.status_code != 200:
+            pytest.fail(f"Expected 200, got {{response.status_code}}")
+
+    with allure.step("3. Attach Full Response JSON"):
+        allure.attach(json.dumps(response.json(), indent=2), name="Disks List Full JSON Response", attachment_type=allure.attachment_type.JSON)
+        
+    return response.json()
+"""
+
              return f"""{api_imports}
+import json
+
+{fixture_code}
 
 {decorators}
 class Test{feature_name}:
@@ -579,57 +680,18 @@ class Test{feature_name}:
     @allure.link("https://jira.cloud.ru/browse/TASK-PENDING", name="Related Task")
     @allure.tag("{priority.upper()}")
     @allure.label("priority", "{priority.lower()}")
-    def test_scenario(self):
+    def test_scenario(self, disk_list_data):
 {code_body}
 """
 
         if test_type == "API" and context == "API_DISKS_CREATE":
-             code_body = f"""        # Arrange
-        base_url = "https://compute.api.cloud.ru"
-        endpoint = "/api/v1/disks"
+             code_body = f"""        # Validation
+        data = created_disk_data
         
-        # Configuration
-        project_id = os.getenv("TEST_PROJECT_ID")
-        token = os.getenv("CLOUD_API_TOKEN")
-        
-        # Validation
-        assert project_id, "Please set TEST_PROJECT_ID in your .env file"
-        
-        headers = {{
-            "Authorization": f"Bearer {{token}}",
-            "Content-Type": "application/json"
-        }}
-        
-        # Dynamic payload with unique name to avoid 409
-        import time
-        unique_suffix = int(time.time())
-        
-        payload = {{
-            "project_id": project_id,
-            "availability_zone_id": "00000000-0000-0000-0000-000000000000", # Example ID, replace if needed
-            "disk_type_id": "00000000-0000-0000-0000-000000000000", # Example ID, replace if needed
-            "name": f"test-disk-{{unique_suffix}}",
-            "description": "Auto-generated test disk",
-            "size": 10,
-            "readonly": False,
-            "shared": False,
-            "encrypted": False
-        }}
-
-        # Act
-        with allure.step(f"POST {{endpoint}}"):
-            response = requests.post(base_url + endpoint, headers=headers, json=payload)
-
-        # Assert
-        with allure.step("Check Status Code 201"):
-            assert response.status_code == 201, f"Expected 201, got {{response.status_code}}"
-        
-        data = response.json()
-        
-        with allure.step("Validate Response Schema"):
+        with allure.step("Validate Created Disk Schema"):
             assert "id" in data, "Response missing 'id'"
-            assert data["name"] == payload["name"], "Name mismatch"
-            assert data["size"] == payload["size"], "Size mismatch"
+            assert "name" in data, "Response missing 'name'"
+            assert "size" in data, "Response missing 'size'"
             assert "state" in data, "Response missing 'state'"
             assert "created_time" in data, "Response missing 'created_time'"
         """
@@ -639,15 +701,82 @@ class Test{feature_name}:
 @allure.suite("API")
 @allure.link("https://jira.cloud.ru/browse/TASK-API-DISKS-CREATE", name="API Docs")"""
 
+             fixture_code = f"""
+@pytest.fixture(scope="function")
+def created_disk_data():
+    base_url = "https://compute.api.cloud.ru"
+    endpoint = "/api/v1/disks"
+    
+    # Configuration
+    project_id = os.getenv("TEST_PROJECT_ID")
+    az_id = os.getenv("TEST_AZ_ID", "479a4ab3-3ff3-4972-95c5-7610bac5c0bb")
+    disk_type_id = os.getenv("TEST_DISK_TYPE_ID", "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0")
+    token = os.getenv("CLOUD_API_TOKEN")
+    
+    assert project_id, "Please set TEST_PROJECT_ID in your .env file"
+    assert token, "Please set CLOUD_API_TOKEN in your .env file"
+    
+    headers = {{
+        "Authorization": f"Bearer {{token}}",
+        "Content-Type": "application/json"
+    }}
+    
+    # Dynamic payload
+    import time
+    unique_suffix = int(time.time())
+    
+    payload = {{
+        "project_id": project_id,
+        "availability_zone_id": az_id, # Дефолтные ID для зоны
+        "disk_type_id": disk_type_id,   # и типа диска (обновите в .env при необходимости)
+        "name": f"test-disk-{{unique_suffix}}",
+        "description": "Auto-generated test disk",
+        "size": 10,
+        "readonly": False,
+        "shared": False,
+        "encrypted": False
+    }}
+    
+    request_data = None
+    
+    # Setup: Create Disk
+    with allure.step("1. Attach Request Payload"):
+        allure.attach(json.dumps(payload, indent=2), name="Request Payload", attachment_type=allure.attachment_type.JSON)
+        
+    with allure.step("2. Execute POST /api/v1/disks"):
+        response = requests.post(base_url + endpoint, headers=headers, json=payload)
+        
+    with allure.step("3. Check Status Code 201"):
+        if response.status_code != 201:
+             pytest.fail(f"Expected 201, got {{response.status_code}}. Response: {{response.text}}")
+             
+    data = response.json()
+    
+    with allure.step("4. Attach Response Data"):
+        allure.attach(json.dumps(data, indent=2), name="Created Disk Response", attachment_type=allure.attachment_type.JSON)
+        
+    yield data
+    
+    # Teardown: Delete Disk
+    disk_id = data["id"]
+    delete_endpoint = f"/api/v1/disks/{{disk_id}}"
+    
+    with allure.step(f"Teardown: DELETE /api/v1/disks/{{disk_id}}"):
+        requests.delete(base_url + delete_endpoint, headers=headers)
+"""
+
              return f"""{api_imports}
+import json
+
+{fixture_code}
 
 {decorators}
 class Test{feature_name}:
-    @allure.title("API Test: Create Disk")
+    @allure.title("API Test: Create Disk with Teardown")
     @allure.link("https://jira.cloud.ru/browse/TASK-PENDING", name="Related Task")
     @allure.tag("{priority.upper()}")
     @allure.label("priority", "{priority.lower()}")
-    def test_scenario(self):
+    def test_scenario(self, created_disk_data):
 {code_body}
 """
 

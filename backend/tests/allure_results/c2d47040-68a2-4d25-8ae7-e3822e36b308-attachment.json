@@ -1,0 +1,32 @@
+{
+  "id": "d34b99b0-7bed-43c4-a75a-8e91bf4269fc",
+  "name": "test-disk-1765673889",
+  "size": 10,
+  "state": "creating",
+  "bootable": false,
+  "readonly": false,
+  "shared": false,
+  "encrypted": false,
+  "created_time": "2025-12-14T00:58:09Z",
+  "project": {
+    "id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+    "product_instance_id": "e88a5d74-bdc9-4f89-a0ec-c32bd9228c00"
+  },
+  "availability_zone": {
+    "id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+    "name": "ru.AZ-2",
+    "enabled": true
+  },
+  "description": "Auto-generated test disk",
+  "serial_id": null,
+  "image": null,
+  "disk_type": {
+    "id": "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0",
+    "name": "SSD",
+    "free_tier": false
+  },
+  "modified_time": null,
+  "tags": [],
+  "vms": [],
+  "servers": []
+}

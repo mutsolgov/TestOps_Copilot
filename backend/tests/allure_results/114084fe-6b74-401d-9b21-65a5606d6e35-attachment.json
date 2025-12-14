@@ -1,0 +1,11 @@
+{
+  "project_id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+  "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+  "disk_type_id": "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0",
+  "name": "test-disk-1765667871",
+  "description": "Auto-generated test disk",
+  "size": 10,
+  "readonly": false,
+  "shared": false,
+  "encrypted": false
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "project_id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+    "name": "test-vm-1765710268",
+    "flavor_id": "7e2a8bd3-54c1-4691-b3dc-14e806e5742b",
+    "image_id": "474c9e98-760f-4e54-aaa9-70024814f2b0",
+    "availability_zone_id": "7c99a597-8516-494f-a2c7-d7377048681e",
+    "disks": [
+      {
+        "disk_name": "boot-disk-1765710268",
+        "disk_type_id": "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0",
+        "size": 10
+      }
+    ],
+    "subnets": [
+      {
+        "subnet_id": "abb61c39-8a65-4735-8d65-55174b795163"
+      }
+    ],
+    "metadata": {
+      "user-data": "IyEvYmluL2Jhc2gKZWNobyBoZWxsbw=="
+    },
+    "ssh_keys": [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBJ6i+hm43CEcEIuw0onvehbYW0rbcIHJnRGpVQqS1NX muhammad@222"
+    ]
+  }
+]

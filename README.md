@@ -66,6 +66,9 @@ TEST_FLAVOR_ID=uuid-флейвора
 # IP адреса для создания/удаления (опционально)
 TEST_EXTERNAL_IPS=1.2.3.4,5.6.7.8
 
+TEST_SSH_PUBLIC_KEY="ssh-ed25519 NX muhammad@222"
+
+
 # --- AI Configuration ---
 # Провайдер AI: "mock" (для демо) или "openai"
 AI_PROVIDER=mock

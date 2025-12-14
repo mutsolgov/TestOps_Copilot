@@ -1,0 +1,66 @@
+[
+    {
+        "id": "7e2a8bd3-54c1-4691-b3dc-14e806e5742b",
+        "name": "gpa100-40_96-960-4",
+        "description": "",
+        "type": "nvidia_a100_40gb",
+        "flavor_type": {
+            "id": "a1de131d-096f-4db1-83f6-55251d892e26",
+            "name": "gpu_a100_40g",
+            "old_name": "nvidia_a100_40gb",
+            "display_name": "NVIDIA A100 40G",
+            "description": null,
+            "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+            "gpu_type": "NVIDIA A100 40G PCIe",
+            "oversubscription": "1:1"
+        },
+        "cpu": 96,
+        "ram": 960,
+        "gpu": 4,
+        "oversubscription": "1:1",
+        "assured_bandwidth": 0,
+        "maximum_bandwidth": 0,
+        "pps": 0,
+        "availability_zones": [
+            {
+                "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                "availability_zone_name": "ru.AZ-2",
+                "default": false,
+                "enabled": true,
+                "state": "created"
+            }
+        ]
+    },
+    {
+        "id": "35e48958-d7cb-4862-9206-3fee5ffc0396",
+        "name": "gpa100-40_48-480-2",
+        "description": "",
+        "type": "nvidia_a100_40gb",
+        "flavor_type": {
+            "id": "a1de131d-096f-4db1-83f6-55251d892e26",
+            "name": "gpu_a100_40g",
+            "old_name": "nvidia_a100_40gb",
+            "display_name": "NVIDIA A100 40G",
+            "description": null,
+            "cpu_type": "Intel Broadwell EP Xeon E5-2699",
+            "gpu_type": "NVIDIA A100 40G PCIe",
+            "oversubscription": "1:1"
+        },
+        "cpu": 48,
+        "ram": 480,
+        "gpu": 2,
+        "oversubscription": "1:1",
+        "assured_bandwidth": 0,
+        "maximum_bandwidth": 0,
+        "pps": 0,
+        "availability_zones": [
+            {
+                "availability_zone_id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                "availability_zone_name": "ru.AZ-2",
+                "default": false,
+                "enabled": true,
+                "state": "created"
+            }
+        ]
+    }
+]

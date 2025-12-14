@@ -1,0 +1,162 @@
+{
+    "items": [
+        {
+            "id": "6f82fed5-cdaa-4b89-9f3c-e7d79342d1e6",
+            "name": "updated-disk-1765654174",
+            "size": 10,
+            "state": "available",
+            "bootable": false,
+            "readonly": false,
+            "shared": false,
+            "encrypted": false,
+            "created_time": "2025-12-13T19:26:21Z",
+            "project": {
+                "id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+                "product_instance_id": "e88a5d74-bdc9-4f89-a0ec-c32bd9228c00"
+            },
+            "availability_zone": {
+                "id": "7c99a597-8516-494f-a2c7-d7377048681e",
+                "name": "ru.AZ-1",
+                "enabled": true
+            },
+            "description": "Updated description",
+            "serial_id": "b03c186b5b5b0674",
+            "image": null,
+            "disk_type": {
+                "id": "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0",
+                "name": "SSD",
+                "free_tier": false
+            },
+            "modified_time": "2025-12-13T19:29:49Z",
+            "tags": [],
+            "vms": [],
+            "servers": []
+        },
+        {
+            "id": "efe706d9-7c7f-472d-8abe-97141c748ede",
+            "name": "vm-d6befa-disk-927da3",
+            "size": 10,
+            "state": "deleting",
+            "bootable": true,
+            "readonly": false,
+            "shared": false,
+            "encrypted": false,
+            "created_time": "2025-12-12T08:13:35Z",
+            "project": {
+                "id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+                "product_instance_id": "e88a5d74-bdc9-4f89-a0ec-c32bd9228c00"
+            },
+            "availability_zone": {
+                "id": "7c99a597-8516-494f-a2c7-d7377048681e",
+                "name": "ru.AZ-1",
+                "enabled": true
+            },
+            "description": "",
+            "serial_id": "fe5d389a6013c78d",
+            "image": {
+                "id": "474c9e98-760f-4e54-aaa9-70024814f2b0",
+                "name": "Ubuntu22.04-new"
+            },
+            "disk_type": {
+                "id": "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0",
+                "name": "SSD",
+                "free_tier": false
+            },
+            "modified_time": "2025-12-13T17:14:11Z",
+            "tags": [],
+            "vms": [
+                {
+                    "id": "05a6dd90-d909-431d-accf-966a6104840a",
+                    "name": "vm-d6befa",
+                    "state": "deleting",
+                    "primary": true
+                }
+            ],
+            "servers": []
+        },
+        {
+            "id": "1a2f84f9-078e-4b73-a568-37a44eb26fc4",
+            "name": "Ezdel-disk-e8b34b",
+            "size": 31,
+            "state": "in_use",
+            "bootable": true,
+            "readonly": false,
+            "shared": false,
+            "encrypted": false,
+            "created_time": "2025-12-12T07:31:03Z",
+            "project": {
+                "id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+                "product_instance_id": "e88a5d74-bdc9-4f89-a0ec-c32bd9228c00"
+            },
+            "availability_zone": {
+                "id": "7c99a597-8516-494f-a2c7-d7377048681e",
+                "name": "ru.AZ-1",
+                "enabled": true
+            },
+            "description": "",
+            "serial_id": "594359d0b262b89",
+            "image": {
+                "id": "474c9e98-760f-4e54-aaa9-70024814f2b0",
+                "name": "Ubuntu22.04-new"
+            },
+            "disk_type": {
+                "id": "a859e3dc-6b14-42a8-9bcc-890fde0ba6d0",
+                "name": "SSD",
+                "free_tier": false
+            },
+            "modified_time": "2025-12-12T07:33:21Z",
+            "tags": [],
+            "vms": [
+                {
+                    "id": "a15d8c55-ad96-4413-8bca-5084cae2eced",
+                    "name": "Ezdel",
+                    "state": "running",
+                    "primary": true
+                }
+            ],
+            "servers": []
+        },
+        {
+            "id": "676b6d31-ebb1-4a82-9920-1fe217f99e5d",
+            "name": "vm-1520e6-disk_e2e7d4b2-873f-48ad-9d28-8001b72fadfa",
+            "size": 30,
+            "state": "in_use",
+            "bootable": true,
+            "readonly": false,
+            "shared": false,
+            "encrypted": false,
+            "created_time": "2025-12-11T03:02:37Z",
+            "project": {
+                "id": "4582273a-e0e7-4fb4-b284-8a91cb03d106",
+                "product_instance_id": "e88a5d74-bdc9-4f89-a0ec-c32bd9228c00"
+            },
+            "availability_zone": {
+                "id": "479a4ab3-3ff3-4972-95c5-7610bac5c0bb",
+                "name": "ru.AZ-2",
+                "enabled": true
+            },
+            "description": "",
+            "serial_id": "fdcab294cfafa2c0",
+            "image": null,
+            "disk_type": {
+                "id": "8628fcd7-36cf-481e-a90b-fa887d647317",
+                "name": "ssd_free_tier",
+                "free_tier": true
+            },
+            "modified_time": "2025-12-11T03:03:19Z",
+            "tags": [],
+            "vms": [
+                {
+                    "id": "581a8872-d825-4421-907c-fcc2aa677a04",
+                    "name": "vm-1520e6",
+                    "state": "running",
+                    "primary": true
+                }
+            ],
+            "servers": []
+        }
+    ],
+    "offset": 0,
+    "limit": 10,
+    "total": 4
+}
