@@ -116,6 +116,9 @@ docker-compose up --build
 
 ---
 
+![Скриншот проекта](Screenshot/1.png)
+![Скриншот проекта](Screenshot/2.png)
+
 
 ## Ресурсы и Демо
 
